@@ -1,10 +1,10 @@
-import NoControlado from "./component/NoControlado"
+import Controlado from "./component/Controlado"
 
 const App = () => {
   return  (
     <div className="container">
       <h1>Formularios </h1>
-      <NoControlado/>
+      <Controlado/>
     </div>
   );
 }
