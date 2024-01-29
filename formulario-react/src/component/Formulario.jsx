@@ -1,9 +1,9 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 
 
-
-const Controlado = ()=>{
+const Formulario = ({addTodo})=>{
     
     const [todo, setTodo] = useState({
         title : "Tarea #001",
@@ -18,11 +18,28 @@ const Controlado = ()=>{
     const handleSumbit = (e) => {
         e.preventDefault();
         setError("");
-        if (!title.trim() || !description.trim() || state==="completada"){
-            return setError("debe completar todos los campos")
+        if (!title.trim() || !description.trim()){
+            console.log("Datos incompletos");
+            return Swal.fire({
+                title: "Error!",
+                text: "Título y descripción son obligatorios",
+                icon: "error",
+            });
+            
         }
-        
-        console.log(title,description,state,priority)
+
+        addTodo({
+            id: Date.now(),
+            ...todo,
+            state: state ==='completado'
+        })
+        return Swal.fire({
+            position:"center",
+            title: "La tare se agrego correctamente",
+            showComfirmButton: false,
+            icon: "success",
+            timer: 1500
+        });
     }
 
 
@@ -72,4 +89,4 @@ const Controlado = ()=>{
     )
 }
 
-export default Controlado
+export default Formulario
