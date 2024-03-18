@@ -1,13 +1,17 @@
-import TodoItem from "./TodoItem"
-const TodoList = () => { 
-    return(
-        <div className="w-[350px] mx-auto rounded-t-md   mt-8 [&>article]:p-4">
-            <TodoItem></TodoItem>
-            <TodoItem></TodoItem>
-            <TodoItem></TodoItem>
-            <TodoItem></TodoItem>
-            <TodoItem></TodoItem>
+import TodoItem from "./TodoItem";
+
+const TodoList = ({ todos, updateTodo, removeTodo }) => {
+    return (
+        <div className="mx-auto mt-8 w-[350px]    rounded-t-md [&>article]:p-4">
+            {todos.map((todo) => (
+                <TodoItem
+                    key={todo.id}
+                    todo={todo}
+                    updateTodo={updateTodo}
+                    removeTodo={removeTodo}
+                />
+            ))}
         </div>
-    )
- }
- export default TodoList
+    );
+};
+export default TodoList;
