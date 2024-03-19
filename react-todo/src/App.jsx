@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import TodoList from "./components/TodoList";
 import TodoComputed from "./components/TodoComputer";
 import TodoFilter from "./components/TodoFilter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const initialToDoList = [
     { id: 1, title: "Complete online Javascript course", completed: true },
@@ -14,8 +14,14 @@ const initialToDoList = [
     { id: 6, title: "Complete Todo app on Frontent Mentor", completed: false },
 ];
 
+localStorage.toDo = [...initialToDoList];
+
 export default function App() {
     const [todos, setTodo] = useState(initialToDoList);
+
+    useEffect(() => {
+        localStorage.toDo = [...todos];
+    }, [todos]);
 
     const createTodo = (title) => {
         const newTodo = {
@@ -61,8 +67,9 @@ export default function App() {
     return (
         <>
             <div
-                className="min-h-screen min-w-max bg-gray-100
-     bg-[url('./assets/images/bg-mobile-light.jpg')] bg-contain bg-no-repeat"
+                className="min-h-screen min-w-max bg-gray-100 bg-[url('./assets/images/bg-mobile-light.jpg')]
+                bg-contain bg-no-repeat 
+                dark:bg-gray-800 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')]"
             >
                 <Header />
 
