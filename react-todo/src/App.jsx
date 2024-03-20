@@ -10,12 +10,12 @@ const reorder = (list, startIndex, endIndex) => {
     const result = [...list];
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
-
     return result;
 };
+const initialTodos = localStorage.toDo && JSON.parse(localStorage.toDo);
 
 export default function App() {
-    const [todos, setTodo] = useState(JSON.parse(localStorage.toDo));
+    const [todos, setTodo] = useState(initialTodos);
 
     useEffect(() => {
         localStorage.toDo = JSON.stringify(todos);
@@ -77,8 +77,8 @@ export default function App() {
     return (
         <>
             <div
-                className="font-body dark:bg-VeryDarkBlue bg-VeryLightGrayishBlue  min-h-screen
-                 bg-[url('./assets/images/bg-mobile-light.jpg')] bg-contain bg-fixed bg-no-repeat text-lg
+                className="font-body dark:bg-VeryDarkBlue bg-VeryLightGrayishBlue  bg-
+                 min-h-screen bg-[url('./assets/images/bg-mobile-light.jpg')] bg-contain bg-no-repeat text-lg
                 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')]
                 md:bg-[url('./assets/images/bg-desktop-light.jpg')]
                 md:dark:bg-[url('./assets/images/bg-desktop-dark.jpg')]"
