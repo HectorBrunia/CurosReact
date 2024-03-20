@@ -12,7 +12,7 @@ const reorder = (list, startIndex, endIndex) => {
     result.splice(endIndex, 0, removed);
     return result;
 };
-const initialTodos = JSON.parse(localStorage.getItem("todos")) || [];
+const initialTodos = JSON.parse(localStorage.getItem("toDo")) || [];
 
 export default function App() {
     const [todos, setTodo] = useState(initialTodos);
