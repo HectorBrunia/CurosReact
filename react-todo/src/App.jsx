@@ -1,3 +1,4 @@
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import TodoCreate from "./components/TodoCreate";
 import Header from "./components/Header";
 import TodoList from "./components/TodoList";
@@ -5,22 +6,19 @@ import TodoComputed from "./components/TodoComputer";
 import TodoFilter from "./components/TodoFilter";
 import { useEffect, useState } from "react";
 
-const initialToDoList = [
-    { id: 1, title: "Complete online Javascript course", completed: true },
-    { id: 2, title: "Jog arround the park 3x", completed: false },
-    { id: 3, title: "10 minutes of metitation", completed: false },
-    { id: 4, title: "read fro 1 hour", completed: false },
-    { id: 5, title: "Pick up groseries", completed: false },
-    { id: 6, title: "Complete Todo app on Frontent Mentor", completed: false },
-];
+const reorder = (list, startIndex, endIndex) => {
+    const result = [...list];
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
 
-localStorage.toDo = [...initialToDoList];
+    return result;
+};
 
 export default function App() {
-    const [todos, setTodo] = useState(initialToDoList);
+    const [todos, setTodo] = useState(JSON.parse(localStorage.toDo));
 
     useEffect(() => {
-        localStorage.toDo = [...todos];
+        localStorage.toDo = JSON.stringify(todos);
     }, [todos]);
 
     const createTodo = (title) => {
@@ -63,34 +61,51 @@ export default function App() {
     const setFilterTodo = (filter) => {
         setFilter(filter);
     };
+    const handleDragEnd = (result) => {
+        const { destination, source } = result;
+        if (!destination) return;
+        if (
+            source.index === destination.index &&
+            source.droppableId === destination.droppableId
+        )
+            return;
 
+        setTodo((prevTasks) =>
+            reorder(prevTasks, source.index, destination.index)
+        );
+    };
     return (
         <>
             <div
-                className="min-h-screen min-w-max bg-gray-100 bg-[url('./assets/images/bg-mobile-light.jpg')]
-                bg-contain bg-no-repeat 
-                dark:bg-gray-800 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')]"
+                className="font-body dark:bg-VeryDarkBlue bg-VeryLightGrayishBlue  min-h-screen
+                 bg-[url('./assets/images/bg-mobile-light.jpg')] bg-contain bg-fixed bg-no-repeat text-lg
+                dark:bg-[url('./assets/images/bg-mobile-dark.jpg')]
+                md:bg-[url('./assets/images/bg-desktop-light.jpg')]
+                md:dark:bg-[url('./assets/images/bg-desktop-dark.jpg')]"
             >
                 <Header />
 
-                <main className="container">
+                <main className="font-body container m-auto text-lg md:max-w-2xl">
                     <TodoCreate createTodo={createTodo} />
-
-                    <TodoList
-                        todos={filterTodo()}
-                        updateTodo={updateTodo}
-                        removeTodo={removeTodo}
-                    />
+                    <DragDropContext onDragEnd={handleDragEnd}>
+                        <TodoList
+                            todos={filterTodo()}
+                            updateTodo={updateTodo}
+                            removeTodo={removeTodo}
+                        />
+                    </DragDropContext>
 
                     <TodoComputed
                         leftComputerTodo={leftComputerTodo}
                         clearCompleted={clearCompleted}
+                        setFilterTodo={setFilterTodo}
+                        filter={filter}
                     />
-
-                    <TodoFilter setFilterTodo={setFilterTodo} filter={filter} />
                 </main>
 
-                <footer className="mt-8 text-center">drag and drop</footer>
+                <footer className="mt-8 text-center text-gray-400">
+                    drag and drop to reorder list
+                </footer>
             </div>
         </>
     );

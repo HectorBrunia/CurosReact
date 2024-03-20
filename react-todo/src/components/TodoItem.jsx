@@ -1,34 +1,42 @@
 import Cross from "./icons/cross";
 import Check from "./icons/Check";
-const TodoItem = ({ todo, updateTodo, removeTodo }) => {
-    const { id, title, completed } = todo;
-    return (
-        <article className=" flex w-[350px] items-center justify-center gap-4 border-b-[1px] bg-white  dark:border-gray-500  dark:bg-gray-700">
-            <button
-                className={`h-6 w-6 rounded-full   
+import React from "react";
+const TodoItem = React.forwardRef(
+    ({ todo, updateTodo, removeTodo, ...props }, ref) => {
+        const { id, title, completed } = todo;
+        return (
+            <article
+                {...props}
+                ref={ref}
+                className=" dark:bg-VeryDarkDesaturatedBlue dark:border-VeryDarkGrayishBlue bg-VeryLightGray 
+                flex items-center justify-center  gap-4  border-b-[1px]"
+            >
+                <button
+                    className={`h-6 w-6 rounded-full   
                 ${
                     completed
-                        ? "border- flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
-                        : "border-[1px] border-gray-300 "
+                        ? "  from-checkRigth to-checkLeft flex items-center justify-center bg-gradient-to-r"
+                        : "dark:border-VeryDarkGrayishBlue border-[1px] "
                 }`}
-                onClick={() => updateTodo(id)}
-            >
-                {completed && <Check />}
-            </button>
-            <p
-                className={`w-10 grow text-ellipsis ${
-                    completed
-                        ? "text-gray-300  line-through  dark:text-gray-500"
-                        : "text-gray-500 dark:text-gray-300"
-                }`}
-            >
-                {title}
-            </p>
-            <button className="flex-none" onClick={() => removeTodo(id)}>
-                <Cross />
-            </button>
-        </article>
-    );
-};
+                    onClick={() => updateTodo(id)}
+                >
+                    {completed && <Check />}
+                </button>
+                <p
+                    className={`w-10 grow text-ellipsis  ${
+                        completed
+                            ? "dark:text-VeryDarkGrayishBlue  text-LightGrayishBlue  line-through"
+                            : "dark:text-LightGrayishBlue text-VeryDarkBlue"
+                    }`}
+                >
+                    {title}
+                </p>
+                <button className="flex-none" onClick={() => removeTodo(id)}>
+                    <Cross />
+                </button>
+            </article>
+        );
+    }
+);
 
 export default TodoItem;

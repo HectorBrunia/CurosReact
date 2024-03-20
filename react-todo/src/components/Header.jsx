@@ -16,16 +16,13 @@ const Header = () => {
     }, [darkMode]);
 
     return (
-        <header className="container mx-auto pt-20">
-            <div className="flex w-96 gap-44 pl-20 ">
-                <h1
-                    className="text-3xl font-semibold uppercase 
-                    tracking-[0.5em] text-white"
-                >
-                    ToDo
+        <header className="container mx-auto px-4 pt-8 md:max-w-xl">
+            <div className="flex justify-between px-32 md:px-0">
+                <h1 className="text-3xl font-semibold uppercase tracking-[0.3em] text-white">
+                    Todo
                 </h1>
                 <button onClick={() => setDarkMode(!darkMode)}>
-                    {darkMode ? <Sun></Sun> : <Moon></Moon>}
+                    {darkMode ? <Sun /> : <Moon />}
                 </button>
             </div>
         </header>
