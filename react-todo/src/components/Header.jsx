@@ -17,7 +17,7 @@ const Header = () => {
 
     return (
         <header className="container mx-auto px-4 pt-8 md:max-w-xl">
-            <div className="flex justify-between px-32 md:px-0">
+            <div className="flex justify-between px-16 md:px-0">
                 <h1 className="text-3xl font-semibold uppercase tracking-[0.3em] text-white">
                     Todo
                 </h1>
