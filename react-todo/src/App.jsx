@@ -20,7 +20,7 @@ const initialTodos = JSON.parse(localStorage.getItem("toDo")) || [
     },
     { id: 2, title: "Go to the gym", completed: false },
     { id: 3, title: "10 minutos meditation", completed: false },
-    { id: 4, title: "Pick up groceries", completed: true },
+    { id: 4, title: "Pick up groceries", completed: false },
     { id: 5, title: "Complete todo app on Frontend Mentor", completed: false },
 ];
 
