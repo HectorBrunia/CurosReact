@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+  @apply text-center text-4xl font-bold text-indigo-500;
+}
+h2 {
+  @apply text-center my-4 text-indigo-500 text-2xl;
+}
+
+p {
+  @apply my-8 text-gray-800;
+}
+
+pre > code {
+  @apply grid;
+}
+
+pre {
+  @apply p-4 rounded my-4;
+}
+
+article pre code {
+  @apply bg-transparent text-sm border-none;
+}
+
+article code {
+  @apply bg-gray-200 px-2 rounded text-sm border;
+}
